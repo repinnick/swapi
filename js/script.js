@@ -40,8 +40,7 @@ function changeActiveBtn(selector, selectorName, target, className){
 async function getAPIjson(category, id = 1) {
     const url = "https://swapi.dev/api/"
     const resolve = await fetch(`${url}${category}/?page=${id}`);
-    const json = await resolve.json();
-    return {count: json.count, results: json.results}
+    return await resolve.json();
     //results //count
 }
 //--------------------------
