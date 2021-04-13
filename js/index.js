@@ -18,16 +18,16 @@ async function getApiData(url){
 //--получаем название категории (category) и меняем активную кнопку--
 // $links.addEventListener('click', getCategory); //если понадобятся страницы
 
-function getCategory(event){
-    event.preventDefault();
-    const target = event.target;
-    if(target.classList.contains('header__href')){
-        changeActiveBtn($links, '.header__href', target, 'active');
-        eventCategory = target.dataset.name;
-        if (!eventCategory) return;
-        generatePaginationAndFirstData(eventCategory);
-    }
-}
+// function getCategory(event){
+//     event.preventDefault();
+//     const target = event.target;
+//     if(target.classList.contains('header__href')){
+//         changeActiveBtn($links, '.header__href', target, 'active');
+//         eventCategory = target.dataset.name;
+//         if (!eventCategory) return;
+//         generatePaginationAndFirstData(eventCategory);
+//     }
+// }
 //-------------------------------------------------------------------
 
 function generatePaginationAndFirstData(category){
@@ -159,7 +159,7 @@ $goBackBtn.addEventListener('click', () => {
 //--- SEARCH ---
 $search.addEventListener('input', searchElements)
 
-async function searchElements(event){
+function searchElements(event){
     const url = `https://swapi.dev/api/people/?search=${event.target.value}`;
     getApiData(url).then(res => {
         const pages = Math.ceil(res.count / 10);
