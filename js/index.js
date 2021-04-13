@@ -48,7 +48,7 @@ function generateFullInfo(url){
     url = url.replace('http', 'https');
     getApiData(url).then(res => {
         createFullPage(res);
-        changeHidenElements();
+        changeHiddenElements();
     })
 }
 
@@ -148,5 +148,5 @@ function changeHiddenElements(){
 }
 
 $goBackBtn.addEventListener('click', () => {
-    changeHidenElements();
+    changeHiddenElements();
 })
