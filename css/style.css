@@ -9,7 +9,9 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Roboto-Regular, sans-serif; }
+  font-family: Roboto-Regular, sans-serif;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
 
 .active {
   border-bottom: 2px solid #F9F017; }
@@ -64,8 +66,24 @@
       font-weight: bold;
       color: #FFD540; }
 
+.main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  min-height: 90%; }
+
 .cards {
-  padding-top: 100px; }
+  padding-top: 100px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto; }
   .cards__items {
     list-style-type: none;
     display: -ms-grid;
@@ -101,34 +119,36 @@
     font-size: 12px;
     opacity: 60%; }
 
-.pagination__active {
-  font-size: 16px;
-  border-bottom: 2px solid #F9F017; }
-
-.pagination__items {
-  padding: 38px 0 24px;
-  list-style-type: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center; }
-
-.pagination__item {
-  cursor: pointer;
-  color: #F9F017;
-  font-family: Roboto-Regular, sans-serif;
-  font-size: 14px;
-  line-height: 16px;
-  margin-right: 10px;
-  -webkit-transition: 0.2s ease-out;
-  -o-transition: 0.2s ease-out;
-  transition: 0.2s ease-out; }
-  .pagination__item:hover {
-    font-size: 20px;
-    opacity: 90%;
-    text-shadow: #F9F017; }
+.pagination {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto; }
+  .pagination__active {
+    font-size: 16px;
+    border-bottom: 2px solid #F9F017; }
+  .pagination__items {
+    padding: 34px 0 34px;
+    list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+  .pagination__item {
+    cursor: pointer;
+    color: #F9F017;
+    font-family: Roboto-Regular, sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    margin-right: 10px;
+    -webkit-transition: 0.2s ease-out;
+    -o-transition: 0.2s ease-out;
+    transition: 0.2s ease-out; }
+    .pagination__item:hover {
+      font-size: 20px;
+      opacity: 90%;
+      text-shadow: #F9F017; }
