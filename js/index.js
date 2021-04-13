@@ -10,25 +10,10 @@ console.log($goBackBtn)
 const urlAPI = "https://swapi.dev/api/";
 let eventCategory;
 
-// !!!! позже объединить в одну функцию, передавать разные url !!!!
-async function getJsonAPI(category) {
-    const link = urlAPI + category + "/"
-    const resolve = await fetch(link);
-    return await resolve.json();
-}
-
-async function getPageAPI(category, page){
-    const link = urlAPI + category + "/?page=" + page;
-    const resolve = await fetch(link)
-    return await resolve.json();
-}
-
-async function getDetailsInfoAPI(url){
-    url = url.replace('http', 'https');
+async function getApiData(url){
     const resolve = await fetch(url);
     return await resolve.json();
 }
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //--получаем название категории (category) и меняем активную кнопку--
 $links.addEventListener('click', getCategory);
@@ -45,7 +30,8 @@ function getCategory(event){
 //-------------------------------------------------------------------
 
 function generatePaginationAndFirstData(category){
-    getJsonAPI(category).then(result => {
+    const url = urlAPI + category + "/";
+    getApiData(url).then(result => {
         const pages = Math.ceil(result.count / 10);
         createPagination(pages)
         createCards(result.results)
@@ -53,13 +39,15 @@ function generatePaginationAndFirstData(category){
 }
 
 function genereatePaginationEvent(page){
-    getPageAPI(eventCategory, page).then(result => {
+    const url = urlAPI + eventCategory + "/?page=" + page;
+    getApiData(url).then(result => {
         createCards(result.results)
     })
 }
 
 function generateFullInfo(url){
-    getDetailsInfoAPI(url).then(res => {
+    url = url.replace('http', 'https');
+    getApiData(url).then(res => {
         createFullPage(res);
         changeHidenElements();
     })
