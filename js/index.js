@@ -5,10 +5,9 @@ const $pagination = document.querySelector('.pagination__items');
 const $fullInfo = document.querySelector('.full-info__items');
 const $goBackBtn = document.querySelector('.full-info__btn');
 
-console.log($goBackBtn)
-
 const urlAPI = "https://swapi.dev/api/";
-let eventCategory;
+let eventCategory = 'people';
+generatePaginationAndFirstData(eventCategory)
 
 async function getApiData(url){
     const resolve = await fetch(url);
@@ -141,7 +140,7 @@ function createFullPage(obj){
 }
 //---------------------------------------------
 
-function changeHidenElements(){
+function changeHiddenElements(){
     $cardsSection.forEach(el => {
         el.hidden = !el.hidden;
     })
