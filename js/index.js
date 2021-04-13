@@ -1,9 +1,13 @@
 const $cards = document.querySelector('.cards__items');
+const $cardsSection = document.querySelectorAll('section');
 const $links = document.querySelector('.header__links');
-const $pagination = document.querySelector('.pagination__items')
-const $fullInfo = document.querySelector('.full-info__items')
+const $pagination = document.querySelector('.pagination__items');
+const $fullInfo = document.querySelector('.full-info__items');
+const $goBackBtn = document.querySelector('.full-info__btn');
 
-const urlAPI = "https://swapi.dev/api/"
+console.log($goBackBtn)
+
+const urlAPI = "https://swapi.dev/api/";
 let eventCategory;
 
 // !!!! позже объединить в одну функцию, передавать разные url !!!!
@@ -56,6 +60,7 @@ function genereatePaginationEvent(page){
 function generateFullInfo(url){
     getDetailsInfoAPI(url).then(res => {
         createFullPage(res);
+        changeHidenElements();
     })
 }
 
@@ -148,5 +153,12 @@ function createFullPage(obj){
 //---------------------------------------------
 
 function changeHidenElements(){
-
+    $cardsSection.forEach(el => {
+        el.hidden = !el.hidden;
+    })
+    $links.parentElement.hidden = !$links.parentElement.hidden;
 }
+
+$goBackBtn.addEventListener('click', () => {
+    changeHidenElements();
+})
