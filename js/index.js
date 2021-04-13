@@ -120,7 +120,7 @@ function getPage(event){
 $cards.addEventListener('click', showFullInfo)
 function showFullInfo(event) {
     const liElement = event.target.closest('li');
-    if (!liElement.dataset) return;
+    if (!liElement) return;
     const url = liElement.dataset.url;
     generateFullInfo(url);
 }
