@@ -24,6 +24,7 @@ async function getPageAPI(category, page){
 }
 
 async function getDetailsInfoAPI(url){
+    url = url.replace('http', 'https');
     const resolve = await fetch(url);
     return await resolve.json();
 }
