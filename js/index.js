@@ -1,24 +1,33 @@
 const $cards = document.querySelector('.cards__items');
 const $links = document.querySelector('.header__links');
 const $pagination = document.querySelector('.pagination__items')
+const $fullInfo = document.querySelector('.full-info__items')
 
-const url = "https://swapi.dev/api/"
+const urlAPI = "https://swapi.dev/api/"
 let eventCategory;
 
+// !!!! позже объединить в одну функцию, передавать разные url !!!!
 async function getJsonAPI(category) {
-    const link = url + category + "/"
+    const link = urlAPI + category + "/"
     const resolve = await fetch(link);
     return await resolve.json();
 }
 
 async function getPageAPI(category, page){
-    const link = url + category + "/?page=" + page;
+    const link = urlAPI + category + "/?page=" + page;
     const resolve = await fetch(link)
     return await resolve.json();
 }
 
+async function getDetailsInfoAPI(url){
+    const resolve = await fetch(url);
+    return await resolve.json();
+}
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 //--получаем название категории (category) и меняем активную кнопку--
 $links.addEventListener('click', getCategory);
+
 function getCategory(event){
     event.preventDefault();
     const target = event.target;
@@ -41,6 +50,12 @@ function generatePaginationAndFirstData(category){
 function genereatePaginationEvent(page){
     getPageAPI(eventCategory, page).then(result => {
         createCards(result.results)
+    })
+}
+
+function generateFullInfo(url){
+    getDetailsInfoAPI(url).then(res => {
+        createFullPage(res);
     })
 }
 
@@ -70,7 +85,7 @@ function changeActiveBtn(selector, selectorName, target, className){
 }
 //-----------------------------
 
-//------- наполнение страницы li карточки -------
+//------- наполнение страницы li карточками -------
 function createCards(data){
     let array = [];
     data.forEach(obj => {
@@ -78,7 +93,7 @@ function createCards(data){
         const info = obj['birth_year'];
         const infoSmaller = obj.gender;
 
-        let cardsTemplate = `<li class="cards__item">
+        let cardsTemplate = `<li class="cards__item" data-url="${obj.url}">
                         <img class="cards__image" src="img/card-image.png" alt="card-image">
                         <div class="cards__text">
                             <p class="cards__title">${title}</p>
@@ -96,6 +111,7 @@ function createCards(data){
 
 //---- получаем название категории (category) и меняем активную кнопку ----
 $pagination.addEventListener('click', getPage)
+
 function getPage(event){
     const target = event.target;
     if (target.classList.contains('pagination__item')){
@@ -104,3 +120,33 @@ function getPage(event){
     }
 }
 //-------------------------------------------------------------------------
+
+//---- получаем полные данные по карточке ----
+$cards.addEventListener('click', showFullInfo)
+function showFullInfo(event) {
+    const url = event.target.closest('li').dataset.url;
+    generateFullInfo(url);
+}
+//--------------------------------------------
+
+//--- создаём карточку с полной информацией ---
+function createFullPage(obj){
+    const liArray = [];
+    const arrayKeys = ["name", "birth_year", "gender", "height", "mass", "skin_color", "eye_color"];
+
+    for (let i = 0; i < arrayKeys.length; i++){
+        let title = arrayKeys[i].split("_").join(" ");
+        let description = obj[`${arrayKeys[i]}`];
+        const liItem = `<li class="full-info__item">
+                        <p class="full-info__title">${title}</p>
+                        <p class="full-info__description">${description}</p>
+                    </li>`;
+        liArray.push(liItem);
+    }
+    $fullInfo.innerHTML = liArray.join('\n');
+}
+//---------------------------------------------
+
+function changeHidenElements(){
+
+}
