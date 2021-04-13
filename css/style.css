@@ -65,6 +65,11 @@
     .header__href:hover {
       font-weight: bold;
       color: #FFD540; }
+  .header__input {
+    outline: none;
+    border: 2px solid #F9F017;
+    padding: 3px 30px 3px 20px;
+    color: #6b778d; }
 
 .main {
   display: -webkit-box;
