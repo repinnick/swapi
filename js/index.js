@@ -1,6 +1,7 @@
 const $cards = document.querySelector('.cards__items');
 const $cardsSection = document.querySelectorAll('section');
-const $links = document.querySelector('.header__links');
+// const $links = document.querySelector('.header__links');
+const $search = document.querySelector('.header__input')
 const $pagination = document.querySelector('.pagination__items');
 const $fullInfo = document.querySelector('.full-info__items');
 const $goBackBtn = document.querySelector('.full-info__btn');
@@ -15,7 +16,7 @@ async function getApiData(url){
 }
 
 //--получаем название категории (category) и меняем активную кнопку--
-$links.addEventListener('click', getCategory);
+// $links.addEventListener('click', getCategory); //если понадобятся страницы
 
 function getCategory(event){
     event.preventDefault();
@@ -144,9 +145,21 @@ function changeHiddenElements(){
     $cardsSection.forEach(el => {
         el.hidden = !el.hidden;
     })
-    $links.parentElement.hidden = !$links.parentElement.hidden;
+    // $links.parentElement.hidden = !$links.parentElement.hidden;
 }
 
 $goBackBtn.addEventListener('click', () => {
     changeHiddenElements();
 })
+
+//--- SEARCH ---
+$search.addEventListener('input', searchElements)
+
+async function searchElements(event){
+    const url = `https://swapi.dev/api/people/?search=${event.target.value}`;
+    getApiData(url).then(res => {
+        const pages = Math.ceil(res.count / 10);
+        createPagination(pages)
+        createCards(res.results)
+    });
+}
