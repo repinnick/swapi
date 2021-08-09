@@ -47,7 +47,7 @@ function genereatePaginationEvent(page){
 }
 
 function generateFullInfo(url){
-    url = url.replace('http', 'https');
+//     url = url.replace('http', 'https');
     getApiData(url).then(res => {
         createFullPage(res);
         changeHiddenElements();
